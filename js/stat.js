@@ -17,4 +17,5 @@ const renderRect = (ctx, x, y, width, height, color = `#000000`) => {
 window.renderStatistics = (ctx, names, times) => {
   renderRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_COLOR);
   renderRect(ctx, CLOUD_X + SHADOW_SHIFT, CLOUD_Y + SHADOW_SHIFT, CLOUD_WIDTH, CLOUD_HEIGHT, SHADOW_COLOR);
+
 };
