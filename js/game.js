@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 window.GameConstants = {
   Fireball: {
@@ -47,7 +47,7 @@ window.Game = (function () {
     HIT_THE_MARK: 4
   };
 
-  var NAMES = ['Кекс', 'Катя', 'Игорь'];
+  var NAMES = ["Кекс", "Катя", "Игорь"];
 
   /**
    * Порядок прохождения уровней.
@@ -98,25 +98,25 @@ window.Game = (function () {
    * @type {Object.<ObjectType, Object>}
    */
   var SpriteMap = {};
-  var REVERSED = '-reversed';
+  var REVERSED = "-reversed";
 
   SpriteMap[ObjectType.ME] = {
     width: 61,
     height: 84,
-    url: 'img/wizard.gif'
+    url: "img/wizard.gif"
   };
 
   // TODO: Find a clever way
   SpriteMap[ObjectType.ME + REVERSED] = {
     width: 61,
     height: 84,
-    url: 'img/wizard-reversed.gif'
+    url: "img/wizard-reversed.gif"
   };
 
   SpriteMap[ObjectType.FIREBALL] = {
     width: 24,
     height: 24,
-    url: 'img/fireball.gif'
+    url: "img/fireball.gif"
   };
 
   /**
@@ -290,12 +290,12 @@ window.Game = (function () {
    */
   var Game = function (container) {
     this.container = container;
-    this.canvas = document.createElement('canvas');
+    this.canvas = document.createElement("canvas");
     this.canvas.width = container.clientWidth;
     this.canvas.height = container.clientHeight;
     this.container.appendChild(this.canvas);
 
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext("2d");
 
     this._onKeyDown = this._onKeyDown.bind(this);
     this._onKeyUp = this._onKeyUp.bind(this);
@@ -367,7 +367,7 @@ window.Game = (function () {
      * @param {boolean=} restart
      */
     initializeLevelAndStart: function (restart) {
-      restart = typeof restart === 'undefined' ? true : restart;
+      restart = typeof restart === "undefined" ? true : restart;
 
       if (restart || !this.state) {
         // сбросить кэш при перезагрузке уровня
@@ -414,7 +414,7 @@ window.Game = (function () {
       this.state.lastUpdated = null;
 
       this._removeGameListeners();
-      window.addEventListener('keydown', this._pauseListener);
+      window.addEventListener("keydown", this._pauseListener);
 
       this._drawPauseScreen();
     },
@@ -432,7 +432,7 @@ window.Game = (function () {
           this.state.currentStatus === Verdict.FAIL;
         this.initializeLevelAndStart(needToRestartTheGame);
 
-        window.removeEventListener('keydown', this._pauseListener);
+        window.removeEventListener("keydown", this._pauseListener);
       }
     },
 
@@ -451,16 +451,16 @@ window.Game = (function () {
             }));
             return;
           }
-          message = 'Вы победили Газебо!\nУра!';
+          message = "Вы победили Газебо!\nУра!";
           break;
         case Verdict.FAIL:
-          message = 'Вы проиграли!';
+          message = "Вы проиграли!";
           break;
         case Verdict.PAUSE:
-          message = 'Игра на паузе!\nНажмите Пробел, чтобы продолжить';
+          message = "Игра на паузе!\nНажмите Пробел, чтобы продолжить";
           break;
         case Verdict.INTRO:
-          message = 'Добро пожаловать!\nНажмите Пробел для начала игры';
+          message = "Добро пожаловать!\nНажмите Пробел для начала игры";
           break;
       }
 
@@ -472,7 +472,7 @@ window.Game = (function () {
       var minTimeInSec = 1000;
 
       var statistic = {
-        'Вы': time
+        "Вы": time
       };
 
       for (var i = 0; i < NAMES.length; i++) {
@@ -517,15 +517,15 @@ window.Game = (function () {
         ctx.fill();
       };
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
       drawCloud(190, 40, 320, 100);
 
-      ctx.fillStyle = 'rgba(256, 256, 256, 1.0)';
+      ctx.fillStyle = "rgba(256, 256, 256, 1.0)";
       drawCloud(180, 30, 320, 100);
 
-      ctx.fillStyle = '#000';
-      ctx.font = '16px PT Mono';
-      message.split('\n').forEach(function (line, i) {
+      ctx.fillStyle = "#000";
+      ctx.font = "16px PT Mono";
+      message.split("\n").forEach(function (line, i) {
         ctx.fillText(line, 200, 80 + 20 * i);
       });
     },
@@ -536,7 +536,7 @@ window.Game = (function () {
      * @private
      */
     _preloadImagesForLevel: function (callback) {
-      if (typeof this._imagesArePreloaded === 'undefined') {
+      if (typeof this._imagesArePreloaded === "undefined") {
         this._imagesArePreloaded = [];
       }
 
@@ -705,7 +705,7 @@ window.Game = (function () {
       this.state.objects.forEach(function (object) {
         if (object.sprite) {
           var reversed = object.direction & Direction.LEFT;
-          var sprite = SpriteMap[object.type + (reversed ? REVERSED : '')] || SpriteMap[object.type];
+          var sprite = SpriteMap[object.type + (reversed ? REVERSED : "")] || SpriteMap[object.type];
           this.ctx.drawImage(sprite.image, object.x, object.y, object.width, object.height);
         }
       }, this);
@@ -796,20 +796,20 @@ window.Game = (function () {
 
     /** @private */
     _initializeGameListeners: function () {
-      window.addEventListener('keydown', this._onKeyDown);
-      window.addEventListener('keyup', this._onKeyUp);
+      window.addEventListener("keydown", this._onKeyDown);
+      window.addEventListener("keyup", this._onKeyUp);
     },
 
     /** @private */
     _removeGameListeners: function () {
-      window.removeEventListener('keydown', this._onKeyDown);
-      window.removeEventListener('keyup', this._onKeyUp);
+      window.removeEventListener("keydown", this._onKeyDown);
+      window.removeEventListener("keyup", this._onKeyUp);
     }
   };
 
   Game.Verdict = Verdict;
 
-  var game = new Game(document.querySelector('.demo'));
+  var game = new Game(document.querySelector(".demo"));
 
   window.restartGame = function (wizardRightImage, wizardLeftImage) {
     SpriteMap[ObjectType.ME].url = wizardRightImage;
@@ -819,7 +819,7 @@ window.Game = (function () {
     game.setGameStatus(Verdict.INTRO);
   };
 
-  window.restartGame('img/wizard.gif', 'img/wizard-reversed.gif');
+  window.restartGame("img/wizard.gif", "img/wizard-reversed.gif");
 
   return game;
 })();
