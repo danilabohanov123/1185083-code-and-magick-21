@@ -13,6 +13,8 @@ const MASSAGE_ROW_GAP = 20;
 const messageRows = [`Ура вы победили!`, `Список результатов:`];
 const COLUMN_WIDTH = 40;
 const MAX_HEIGHT = 150;
+const GAP = 20;
+let maxTime;
 
 const renderRect = (ctx, x, y, width, height, color = `#ffffff`) => {
   ctx.fillStyle = color;
@@ -28,7 +30,7 @@ const printText = (ctx, str, x, y, color = `#000000`, font = `16px PT Mono`) => 
 
 const renderPlayerResult = (ctx, x, y, score, player) => {
   ctx.fillText(player);
-
+  const columnHeight = MAX_HEIGHT / maxTime
 };
 
 window.renderStatistics = (ctx, names, times) => {
@@ -37,7 +39,7 @@ window.renderStatistics = (ctx, names, times) => {
   for (let i = 0; i < messageRows.length; i++) {
     printText(ctx, messageRows[i], MASSAGE_X, MASSAGE_Y + i * MASSAGE_ROW_GAP);
   }
-  const maxTime = times.max();
+  maxTime = times.max();
   for (let i = 0; i < names.length; i++) {
     renderPlayerResult(ctx,  )
   }
