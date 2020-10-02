@@ -14,23 +14,44 @@ const messageRows = [`Ура вы победили!`, `Список резуль
 const COLUMN_WIDTH = 40;
 const MAX_HEIGHT = 150;
 const GAP = 20;
+const COLUMN_GAP = 50;
+const PLAYER_FONT = 16;
+const COLOR_MAIN_PLAYER = `#ff0000`;
+const START_Y = 265;
+const BASIC_FONT = `#000000`;
+const BASIC_BACKGROUND = `#ffffff`;
+const RES_Y = 75;
 let maxTime;
 
-const renderRect = (ctx, x, y, width, height, color = `#ffffff`) => {
+const randomInteger = (l, r) => {
+  return parseInt(Math.random() * (r - l) + l, 10);
+};
+
+const renderRect = (ctx, x, y, width, height, color = BASIC_BACKGROUND) => {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, width, height);
 
 };
 
-const printText = (ctx, str, x, y, color = `#000000`, font = `16px PT Mono`) => {
+const printText = (ctx, str, x, y, color = BASIC_FONT, font = `16px PT Mono`) => {
   ctx.font = font;
   ctx.fillStyle = color;
   ctx.fillText(str, x, y);
 };
 
-const renderPlayerResult = (ctx, x, y, score, player) => {
-  ctx.fillText(player);
-  const columnHeight = MAX_HEIGHT / maxTime
+const renderPlayerResult = (ctx, x, y, tm, player) => {
+  ctx.font = String(PLAYER_FONT) + `px PT Mono`;
+  ctx.fillStyle = BASIC_FONT;
+  ctx.fillText(player, x, y - PLAYER_FONT);
+  const columnHeight = parseInt(MAX_HEIGHT / maxTime * tm, 10);
+  if (player === `Вы`) {
+    renderRect(ctx, x, y - PLAYER_FONT - GAP - columnHeight, COLUMN_WIDTH, columnHeight, COLOR_MAIN_PLAYER);
+  } else {
+    const playerSaturation = randomInteger(0, 100);
+    renderRect(ctx, x, y - PLAYER_FONT - GAP - columnHeight, COLUMN_WIDTH, columnHeight, `hsl(240, ` + String(playerSaturation) + `%, 50%)`);
+  }
+  ctx.fillStyle = BASIC_FONT;
+  ctx.fillText(parseInt(tm, 10), x, RES_Y);
 };
 
 window.renderStatistics = (ctx, names, times) => {
@@ -39,8 +60,8 @@ window.renderStatistics = (ctx, names, times) => {
   for (let i = 0; i < messageRows.length; i++) {
     printText(ctx, messageRows[i], MASSAGE_X, MASSAGE_Y + i * MASSAGE_ROW_GAP);
   }
-  maxTime = times.max();
+  maxTime = Math.max.apply(null, times);
   for (let i = 0; i < names.length; i++) {
-    renderPlayerResult(ctx,  )
+    renderPlayerResult(ctx, GAP + CLOUD_X + i * (COLUMN_GAP + COLUMN_WIDTH), CLOUD_Y + START_Y, times[i], names[i]);
   }
 };
