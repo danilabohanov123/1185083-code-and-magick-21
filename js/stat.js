@@ -1,4 +1,4 @@
-"use strict";
+`use strict`;
 
 const CLOUD_X = 100;
 const CLOUD_Y = 10;
