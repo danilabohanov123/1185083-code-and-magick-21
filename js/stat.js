@@ -7,8 +7,8 @@ const CLOUD_HEIGHT = 270;
 const CLOUD_COLOR = `#ffffff`;
 const SHADOW_SHIFT = 10;
 const SHADOW_COLOR = `rgba(0, 0, 0, 0.7)`;
-const MASSAGE_X = 110;
-const MASSAGE_Y = 30;
+const MESSAGE_X = 110;
+const MESSAGE_Y = 30;
 const MASSAGE_ROW_GAP = 20;
 const messageRows = [`Ура вы победили!`, `Список результатов:`];
 const COLUMN_WIDTH = 40;
@@ -23,8 +23,8 @@ const BASIC_BACKGROUND = `#ffffff`;
 const RES_Y = 75;
 let maxTime;
 
-const randomInteger = (l, r) => {
-  return parseInt(Math.random() * (r - l) + l, 10);
+const randomInteger = (minNumber, maxNumber) => {
+  return parseInt(Math.random() * (maxNumber - minNumber) + minNumber, 10);
 };
 
 const renderRect = (ctx, x, y, width, height, color = BASIC_BACKGROUND) => {
@@ -58,7 +58,7 @@ window.renderStatistics = (ctx, names, times) => {
   renderRect(ctx, CLOUD_X + SHADOW_SHIFT, CLOUD_Y + SHADOW_SHIFT, CLOUD_WIDTH, CLOUD_HEIGHT, SHADOW_COLOR);
   renderRect(ctx, CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_COLOR);
   for (let i = 0; i < messageRows.length; i++) {
-    printText(ctx, messageRows[i], MASSAGE_X, MASSAGE_Y + i * MASSAGE_ROW_GAP);
+    printText(ctx, messageRows[i], MESSAGE_X, MESSAGE_Y + i * MASSAGE_ROW_GAP);
   }
   maxTime = Math.max.apply(null, times);
   for (let i = 0; i < names.length; i++) {
